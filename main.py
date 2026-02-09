@@ -8,7 +8,7 @@ def main():
     transformer = NumTransformer()
 
     CODE = '''
-        if (2 < 1) {
+        if (2 > 1) {
             write("HELLO IF");
         }
     '''

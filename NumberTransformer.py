@@ -57,7 +57,7 @@ class NumTransformer(Transformer):
         return items  # список вызываемых функций
 
     def conditional_expression(self, items):
-
+        condition = items[1]
         exec_funcs = items[2]
         if condition:
             for fn in exec_funcs:
