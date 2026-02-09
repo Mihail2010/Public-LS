@@ -8,14 +8,16 @@ def main():
     transformer = NumTransformer()
 
     CODE = '''
-    write(324234);
-    write("rerere");
+        if (2 < 1) {
+            write("HELLO IF");
+        }
     '''
-     
+
 
     tree = parser.parse(CODE)
     result = transformer.transform(tree)
     print(f"{result}")
-        
+
+
 if __name__ == "__main__":
     main()

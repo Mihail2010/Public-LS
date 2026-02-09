@@ -3,14 +3,22 @@ start: statement+
 
 statement: var_definition_with_type
          | write
+         | conditional_expression
          | expr ";"
 
+block: "{" statement* "}"
 
-var_definition_with_type: NUM_KW CNAME "=" expr ["," type_spec] ";" 
-                       | STR_KW CNAME "=" expr ";" 
+
+conditional_expression: IF "(" expr ")" block
+
+
+
+
+var_definition_with_type: NUM_KW CNAME "=" expr ["," type_spec] ";"
+                       | STR_KW CNAME "=" expr ";"
                        | LIST_KW CNAME "=" list_expr ";"
 
-write: WRITE_KW "(" expr ("," expr)* ")" ";" 
+write: WRITE_KW "(" expr ("," expr)* ")" ";"
 
 ?expr: expr "==" expr    -> comp
      | expr "!=" expr    -> ncomp
@@ -38,6 +46,7 @@ type_spec: "int" -> type_int
 list_expr: "[" [expr ("," expr)*] "]" -> make_list
 
 // Ключевые слова с приоритетом
+IF.2: "if"
 NUM_KW.2: "num"
 STR_KW.2: "str"
 LIST_KW.2: "list"

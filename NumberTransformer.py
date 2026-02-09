@@ -32,7 +32,9 @@ class NumTransformer(Transformer):
 
     # --- Инструкции ---
     def write(self, items):
-        print(*items[1:])
+        def _exec():
+            print(*items)
+        return _exec
 
     def var_definition_with_type(self, items):
         # items: [тип, имя, значение, (опционально: тип_спецификация)]
@@ -51,6 +53,19 @@ class NumTransformer(Transformer):
         self.variables[name] = value
         return None
 
+    def block(self, items):
+        return items  # список вызываемых функций
+
+    def conditional_expression(self, items):
+
+        exec_funcs = items[2]
+        if condition:
+            for fn in exec_funcs:
+                if fn: fn()
+        return None
+
+    def statement(self, items):
+        return items[0]  # возвращаем результат внутренней инструкции
 
     def start(self, items):
-        return None 
+        return [item for item in items if item is not None]
